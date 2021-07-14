@@ -1,0 +1,135 @@
+﻿@model IEnumerable<DatabaseDataViewerWeb.Models.t_fal_req_log>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppPoolId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SiteId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Verb)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TokenUserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthenticationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FailureReason)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReasonDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TriggerStatusCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeTaken)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Xml_Dta)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model.Where(item => item != null))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Url)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AppPoolId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SiteId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProcessId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Verb)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TokenUserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AuthenticationType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ActivityId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FailureReason)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReasonDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StatusCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TriggerStatusCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TimeTaken)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Xml_Dta)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
