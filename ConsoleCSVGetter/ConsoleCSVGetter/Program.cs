@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace ConsoleCSVGetter
 {
@@ -13,36 +14,42 @@ namespace ConsoleCSVGetter
         static void Main(string[] args)
         {
             string queryString =
-                "SELECT TOP 10 Id,Url,AppPoolId,SiteId,ProcessId,Verb,TokenUserName,AuthenticationType,ActivityId,FailureReason,ReasonDescription,StatusCode,TriggerStatusCode,TimeTaken,StartTime,EndTime,ServerName FROM t_fal_req_log";
+                ConnectionData.Query;
 
-            string connectionString = "Server=EDYN-REP-DB-01.CORP.EDYNAMIX.CO.UK\\INTERN;Database=IISFailedRequest;User Id=Uchenici;Password=edynamix12345;";
+            string connectionString = ConnectionData.ConnectionString;
 
-            var initSb = new StringBuilder();
             var csvContent = new StringBuilder();
+            var xmlEventData = new StringBuilder();
 
-            using (SqlConnection connection = new SqlConnection(
-               connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(
                     queryString, connection);
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    string firstCsvLine = FirstCsvRow(reader);
-                    csvContent.AppendLine(firstCsvLine); 
-                    while (reader.Read()) 
+                    csvContent.AppendLine(FirstCsvRow(reader));
+                    while (reader.Read())
                     {
-                        for (int i = 0; i < 16; i++)
+                        for (int i = 0; i < reader.FieldCount - 1; i++)
                         {
-                            initSb.Append($"\"{reader[i]}\", ");
+                            csvContent.Append($"\"{reader[i]}\", ");
                         }
-                        initSb.Append($"\"{reader[16]}\"");
-                        csvContent.AppendLine(initSb.ToString());
-                        initSb.Clear();
+                        csvContent.AppendLine();
+                        XDocument xml = XDocument.Parse(reader[reader.FieldCount - 1].ToString());
+
+                        var eventData = xml.Root.Elements()
+                            .Where(e => e.Name.LocalName == "Event").Elements()
+                            .Where(e => e.Name.LocalName == "EventData").ToList();
+
+                        foreach (var data in eventData)
+                        {
+                            csvContent.AppendLine(data.ToString());
+                        }
+                        xmlEventData.Clear();
                     }
                 }
-                string csvPath = "D:\\dataInCsv.csv";
-                File.AppendAllText(csvPath, csvContent.ToString());
+                File.WriteAllText("../../../CsvFileFolder/csvFile.csv", csvContent.ToString());
             }
         }
         public static string FirstCsvRow(SqlDataReader reader)
@@ -57,5 +64,24 @@ namespace ConsoleCSVGetter
 
             return sb.ToString();
         }
+
+        //static string PrettyXml(string xml)
+        //{
+        //    var stringBuilder = new StringBuilder();
+
+        //    var element = XElement.Parse(xml);
+
+        //    var settings = new XmlWriterSettings();
+        //    settings.OmitXmlDeclaration = true;
+        //    settings.Indent = true;
+        //    settings.NewLineOnAttributes = true;
+
+        //    using (var xmlWriter = XmlWriter.Create(stringBuilder, settings))
+        //    {
+        //        element.Save(xmlWriter);
+        //    }
+
+        //    return stringBuilder.ToString();
+        //}
     }
 }
