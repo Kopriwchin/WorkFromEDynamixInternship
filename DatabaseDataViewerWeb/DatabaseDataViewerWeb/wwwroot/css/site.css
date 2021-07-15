@@ -54,3 +54,19 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/*table {
+    table-layout: fixed;
+    width: 2000px;
+}*/
+
+/*td {
+    width:150px;
+    word-wrap: break-word;
+}*/
+
+.rectangle {
+    height: 800px;
+    width: 600px;
+    background-color: #555;
+}
