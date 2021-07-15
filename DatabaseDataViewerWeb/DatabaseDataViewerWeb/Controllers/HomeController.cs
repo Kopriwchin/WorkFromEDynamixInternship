@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DatabaseDataViewerWeb.Models;
 using DatabaseDataViewerWeb.Data;
-using System.Data.SqlClient;
-using System.Xml;
 
 namespace DatabaseDataViewerWeb.Controllers
 {
@@ -18,32 +14,38 @@ namespace DatabaseDataViewerWeb.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int pageNumber = 1)
         {
             var logs = _dbContext.T_fal_req_log
                 .Select(x => new t_fal_req_log
                 {
-                    Id                  = x.Id,
-                    Url                 = x.Url,
-                    AppPoolId               =  x.AppPoolId,
-                    SiteId              = x.SiteId,
-                    ProcessId           = x.ProcessId,
-                    Verb                = x.Verb,
-                    TokenUserName            = x.TokenUserName,
-                    AuthenticationType       = x.AuthenticationType,
-                    ActivityId               = x.ActivityId,
-                    FailureReason            = x.FailureReason,
-                    ReasonDescription            = x.ReasonDescription,
-                    StatusCode               = x.StatusCode,
-                    TriggerStatusCode        = x.TriggerStatusCode,
-                    TimeTaken            = x.TimeTaken,
-                    StartTime            = x.StartTime,
-                    EndTime                  = x.EndTime,
-                    ServerName         = x.ServerName
-                }).Skip(116550)
+                    Id = x.Id,
+                    Url = x.Url,
+                    AppPoolId = x.AppPoolId,
+                    SiteId = x.SiteId,
+                    ProcessId = x.ProcessId,
+                    Verb = x.Verb,
+                    TokenUserName = x.TokenUserName,
+                    AuthenticationType = x.AuthenticationType,
+                    ActivityId = x.ActivityId,
+                    FailureReason = x.FailureReason,
+                    ReasonDescription = x.ReasonDescription,
+                    StatusCode = x.StatusCode,
+                    TriggerStatusCode = x.TriggerStatusCode,
+                    TimeTaken = x.TimeTaken,
+                    StartTime = x.StartTime,
+                    EndTime = x.EndTime,
+                    ServerName = x.ServerName
+                })
+                .AsQueryable();
+
+            var list = typeof(t_fal_req_log)
+                .GetProperties()
+                .Select(x => x.Name)
                 .ToList();
 
-            return View(logs);
+            ViewBag.Titles = list;
+            return View(await PaginatedList<t_fal_req_log>.CreateAsync(logs, pageNumber, 4));
         }
 
         public IActionResult Privacy()
