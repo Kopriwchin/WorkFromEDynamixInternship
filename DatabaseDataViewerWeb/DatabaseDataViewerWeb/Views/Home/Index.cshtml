@@ -1,0 +1,109 @@
+﻿@model PaginatedList<DatabaseDataViewerWeb.Models.t_fal_req_log>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var title in ViewBag.Titles)
+            {
+                List<string> badTitles = new List<string>() { "Id", "UserName", "RemoteUserName" };
+                @if (!badTitles.Contains(title))
+                {
+                    <th>
+                        @Html.DisplayName(title)
+                    </th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model.Where(item => item != null))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Url)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AppPoolId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SiteId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProcessId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Verb)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TokenUserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AuthenticationType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ActivityId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FailureReason)
+                    </td>
+                    <td style="width:100px">
+                        @Html.DisplayFor(modelItem => item.ReasonDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StatusCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TriggerStatusCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TimeTaken)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Xml_Dta)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.NextPage ? "disabled" : "";
+}
+
+<a asp-controller="Home"
+   asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-primary @prevDisabled">
+    Previous Page
+</a>
+
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-primary @nextDisabled">
+    Next Page
+</a>
