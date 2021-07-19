@@ -48,6 +48,14 @@ namespace DatabaseDataViewerWeb.Controllers
             return View(await PaginatedList<t_fal_req_log>.CreateAsync(logs, pageNumber, 4));
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            t_fal_req_log model = _dbContext.T_fal_req_log
+               .FirstOrDefault(x => x.Id == id);
+
+            return View(model);
+        }
+
         public IActionResult Privacy()
         {
             return View();

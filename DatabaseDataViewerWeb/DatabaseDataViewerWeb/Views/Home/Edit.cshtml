@@ -1,0 +1,124 @@
+﻿@model DatabaseDataViewerWeb.Models.t_fal_req_log
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>t_fal_req_log</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Url" class="control-label"></label>
+                <input asp-for="Url" class="form-control" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppPoolId" class="control-label"></label>
+                <input asp-for="AppPoolId" class="form-control" />
+                <span asp-validation-for="AppPoolId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SiteId" class="control-label"></label>
+                <input asp-for="SiteId" class="form-control" />
+                <span asp-validation-for="SiteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProcessId" class="control-label"></label>
+                <input asp-for="ProcessId" class="form-control" />
+                <span asp-validation-for="ProcessId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Verb" class="control-label"></label>
+                <input asp-for="Verb" class="form-control" />
+                <span asp-validation-for="Verb" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RemoteUserName" class="control-label"></label>
+                <input asp-for="RemoteUserName" class="form-control" />
+                <span asp-validation-for="RemoteUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TokenUserName" class="control-label"></label>
+                <input asp-for="TokenUserName" class="form-control" />
+                <span asp-validation-for="TokenUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AuthenticationType" class="control-label"></label>
+                <input asp-for="AuthenticationType" class="form-control" />
+                <span asp-validation-for="AuthenticationType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityId" class="control-label"></label>
+                <input asp-for="ActivityId" class="form-control" />
+                <span asp-validation-for="ActivityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FailureReason" class="control-label"></label>
+                <input asp-for="FailureReason" class="form-control" />
+                <span asp-validation-for="FailureReason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReasonDescription" class="control-label"></label>
+                <input asp-for="ReasonDescription" class="form-control" />
+                <span asp-validation-for="ReasonDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusCode" class="control-label"></label>
+                <input asp-for="StatusCode" class="form-control" />
+                <span asp-validation-for="StatusCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TriggerStatusCode" class="control-label"></label>
+                <input asp-for="TriggerStatusCode" class="form-control" />
+                <span asp-validation-for="TriggerStatusCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeTaken" class="control-label"></label>
+                <input asp-for="TimeTaken" class="form-control" />
+                <span asp-validation-for="TimeTaken" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndTime" class="control-label"></label>
+                <input asp-for="EndTime" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServerName" class="control-label"></label>
+                <input asp-for="ServerName" class="form-control" />
+                <span asp-validation-for="ServerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Xml_Dta" class="control-label"></label>
+                <input asp-for="Xml_Dta" class="form-control" />
+                <span asp-validation-for="Xml_Dta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
